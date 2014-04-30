@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html><head>
+  
+  <meta charset="UTF-8">
+  <title>Secret Santa!</title>
+
+  
+<!-- <link rel="sytlesheet" href="Input.css" type="text/css"/>  -->
+  <title>Insert title here</title>
+
+  
+
+<style>
+//body {background-image:url("http://images2.layoutsparks.com/1/189265/horse-snow-fall-winter.gif");}
+</style>
+
+<script>
+	// Object defining a participant
+	function participant(fullName, email, partId)
+	{
+		this.partId = partId;
+		this.fullName = fullName;
+		this.email = email;
+		this.exList = new Array();
+	}
+
+	// Setup global variables for the page.
+	var m_participants = new Array();
+
+	function validateParticipant()
+	{
+		var emailRegEx = new RegExp("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		var table = document.getElementById("participants");
+		var row = table.rows[this.parentNode.parentNode.rowIndex];
+		var name = row.cells[0].firstChild.value;
+		var email = row.cells[1].firstChild.value;
+		var button = document.getElementById("nextButton");
+		var invalidEntry = name.length == 0 || !emailRegEx.test(email);
+		var indexToUpdate = -1
+		for (var i=0; i < m_participants.length && indexToUpdate === -1; i++)
+		{
+			if(m_participants[i].partId == this.parentNode.parentNode.rowIndex)
+			{
+				indexToUpdate = i;
+			}
+		}
+		// if the entry is valid and didn't exist in our table, add it
+		if(!invalidEntry && indexToUpdate === -1)
+		{
+			// It's a valid entry, so let's add this person to our participants!
+			m_participants.push(new participant(name, email, this.parentNode.parentNode.rowIndex));
+		}
+		// if the entry is invalid and it did exist, remove the entry
+		else if(invalidEntry && indexToUpdate != -1)
+		{
+			m_participants.splice(indexToUpdate, 1);
+		}
+		// if the entry existed and is valid, update it
+		else if(!invalidEntry && indexToUpdate != -1)
+		{
+			m_participants[indexToUpdate].fullName = name;
+			m_participants[indexToUpdate].email = email;
+		}
+		button.disabled = (table.rows.length <= 1 || (m_participants.length != table.rows.length));
+	}
+
+	function addParticipant()
+	{
+		var emailRegEx = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		var table = document.getElementById("participants");
+		var rowIndex = table.rows.length;
+		var row = table.insertRow(rowIndex);
+		var name = row.insertCell(0);
+		var nameElement = document.createElement('input');
+		nameElement.setAttribute("type", "text");
+		nameElement.setAttribute("id", rowIndex);
+		nameElement.setAttribute("required", "");
+		nameElement.setAttribute("placeholder", "Name");
+		nameElement.onblur = validateParticipant;
+		name.appendChild(nameElement);
+
+		var emailAddr = row.insertCell(1);
+		var emailAddrElement = document.createElement('input');
+		emailAddrElement.setAttribute("type", "text");
+		emailAddrElement.setAttribute("id", rowIndex);
+		emailAddrElement.setAttribute("placeholder", "Email");
+		emailAddrElement.onblur = validateParticipant;
+		emailAddrElement.setAttribute("required", "");
+		emailAddr.appendChild(emailAddrElement);
+
+		var deleteButton = row.insertCell(2);
+		//name.innerHTML = "<input type=\"text\" id=\"" + rowIndex +"\" required=\"\" placeholder=\"Name\">";
+		document.getElementById(rowIndex).focus();
+		deleteButton.innerHTML = "<button type=\"button\"><img src=\"deleteParticipant.png\" height=\"10\" width=\"10\"/></button>";
+		deleteButton.onclick = function() {
+			var table = document.getElementById("participants");
+			var indexToRemove = -1
+			for (var i=0; i < m_participants.length && indexToRemove === -1; i++)
+			{
+				if(m_participants[i].partId == this.parentNode.rowIndex)
+				{
+					indexToRemove = i;
+				}
+			}
+			if(indexToRemove != -1)
+			{
+				m_participants.splice(indexToRemove, 1);
+			}
+			table.deleteRow(this.parentNode.rowIndex);
+			var button = document.getElementById("nextButton");
+			button.disabled = (table.rows.length <= 1 || (m_participants.length != table.rows.length));
+		}
+	}
+
+	function showExList()
+	{
+		var exListDiv = document.getElementById("exListDiv");
+		var partTable = document.getElementById('participants');
+		if(partTable.rows.length < 2)
+		{
+			alert("You'll need more partipants!");
+			return;
+		}
+		var exListTable = document.createElement('table');
+		exListTable.border = "1px";
+		var exListTableHeader = exListTable.createTHead();
+		var headerRow = exListTableHeader.insertRow(0);
+		headerRow.insertCell(0).innerHTML = "Participants";
+		headerRow.insertCell(1).innerHTML = "Exclustion List";
+		var participantNames = new Array();
+		// remove the old table
+		exListDiv.innerHTML = "";
+
+		// get the names of each participant
+		for (var i=0; i < partTable.rows.length; i++)
+		{
+			var row = partTable.rows[i];
+			var nameCell = row.cells[0];
+			var nameTd = nameCell.children[0].value;
+			var emailTd = row.cells[1].children[0].value;
+			if(emailTd.length == 0 || nameTd.length == 0)
+			{
+				alert("Please ensure all names and email address are filled in.");
+				return;
+			}
+			participantNames.push(nameTd);
+		}
+
+		for (var curPar=0; curPar < participantNames.length; ++curPar)
+		{
+			var parRow = exListTable.insertRow(exListTable.rows.length);
+			var parNameCell = parRow.insertCell(0);
+			parNameCell.innerHTML = participantNames[curPar];
+			var exListCell = parRow.insertCell(1);
+			for( var curExList = 0; curExList < participantNames.length; ++curExList)
+			{
+				if(curExList != curPar)
+				{
+					console.log(participantNames[curExList])
+					exListCell.innerHTML += "<input type=\"checkbox\" name=\"Name\" value=\"" + participantNames[curExList] +"\">" + participantNames[curExList] + "<br>";
+				}
+			}
+		}
+		// add the new table to the div
+		exListDiv.appendChild(exListTable);
+
+		document.getElementById("partiEntry").style.display = 'none';
+		document.getElementById("exListEntry").style.display = 'block';
+	}
+
+	function showParticipants()
+	{
+		document.getElementById("partiEntry").style.display = 'block';
+    	document.getElementById("exListEntry").style.display = 'none';
+	}
+
+	function doSend()
+	{
+		var subject = document.getElementById("subject");
+		if(subject.value.length === 0)
+		{
+			alert("Please enter a subject for the email to be sent out");
+		}
+	}
+</script>
+</head><body>
+<divs id="messageInfo">
+	Enter Message Subject: <input id="subject" type="text" size="80" required="" pattern="^(?!\s*$).+" placeholder="Cannot be empty" name="subject"><br>
+	Enter Message Body:<br>
+	<textarea required="" name="message" rows="20" cols="80"></textarea><br>
+</div>
+
+<div id="partiEntry">
+	<table id="participants">
+	</table>
+	<button onclick="addParticipant()">Add Participant</button>
+	<br>
+	<button id="nextButton" onclick="showExList()" disabled>Next</button>
+</div>
+
+<div id="exListEntry" style="display:none">
+	<div id="exListDiv"></div>
+	<button onclick="showParticipants()">Previous</button><button onclick="doSend()">Send</button>
+</div>
+
+</body></html>
