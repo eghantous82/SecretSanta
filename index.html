@@ -9,19 +9,36 @@
   <title>Insert title here</title>
 
   
-
+<!--
 <style>
-//body {background-image:url("http://images2.layoutsparks.com/1/189265/horse-snow-fall-winter.gif");}
+body {background-image:url("http://images2.layoutsparks.com/1/189265/horse-snow-fall-winter.gif");}
 </style>
+-->
 
 <script>
 	// Object defining a participant
-	function participant(fullName, email, partId)
+	function Participant(fullName, email, partId)
 	{
 		this.partId = partId;
 		this.fullName = fullName;
 		this.email = email;
 		this.exList = new Array();
+
+
+	}
+
+	Participant.prototype.removeFromExList = function(participantEmail)
+	{
+		var notFound = true;
+		var i = 0;
+		for(; i < this.exList.length && notFound; ++i)
+		{
+			if(participantEmail.toLowerCase() === this.exList[i].toLowerCase())
+			{
+				notFound = false;
+			}
+		}
+		this.exList.splice(i, 1);
 	}
 
 	// Setup global variables for the page.
@@ -48,7 +65,7 @@
 		if(!invalidEntry && indexToUpdate === -1)
 		{
 			// It's a valid entry, so let's add this person to our participants!
-			m_participants.push(new participant(name, email, this.parentNode.parentNode.rowIndex));
+			m_participants.push(new Participant(name, email, this.parentNode.parentNode.rowIndex));
 		}
 		// if the entry is invalid and it did exist, remove the entry
 		else if(invalidEntry && indexToUpdate != -1)
@@ -61,7 +78,7 @@
 			m_participants[indexToUpdate].fullName = name;
 			m_participants[indexToUpdate].email = email;
 		}
-		button.disabled = (table.rows.length <= 1 || (m_participants.length != table.rows.length));
+		button.disabled = (table.rows.length <= 2 || (m_participants.length != table.rows.length));
 	}
 
 	function addParticipant()
@@ -76,7 +93,7 @@
 		nameElement.setAttribute("id", rowIndex);
 		nameElement.setAttribute("required", "");
 		nameElement.setAttribute("placeholder", "Name");
-		nameElement.onblur = validateParticipant;
+		nameElement.onkeyup = validateParticipant;
 		name.appendChild(nameElement);
 
 		var emailAddr = row.insertCell(1);
@@ -84,7 +101,7 @@
 		emailAddrElement.setAttribute("type", "text");
 		emailAddrElement.setAttribute("id", rowIndex);
 		emailAddrElement.setAttribute("placeholder", "Email");
-		emailAddrElement.onblur = validateParticipant;
+		emailAddrElement.onkeyup = validateParticipant;
 		emailAddrElement.setAttribute("required", "");
 		emailAddr.appendChild(emailAddrElement);
 
@@ -108,7 +125,7 @@
 			}
 			table.deleteRow(this.parentNode.rowIndex);
 			var button = document.getElementById("nextButton");
-			button.disabled = (table.rows.length <= 1 || (m_participants.length != table.rows.length));
+			button.disabled = true;
 		}
 	}
 
@@ -156,8 +173,30 @@
 			{
 				if(curExList != curPar)
 				{
-					console.log(participantNames[curExList])
-					exListCell.innerHTML += "<input type=\"checkbox\" name=\"Name\" value=\"" + participantNames[curExList] +"\">" + participantNames[curExList] + "<br>";
+					var checkboxElement = document.createElement('input');
+					checkboxElement.setAttribute("type", "checkbox");
+					checkboxElement.setAttribute("value", participantNames[curExList]);
+					checkboxElement.onclick = function() {
+						var participantName = this.parentNode.parentNode.cells[0].firstChild.data;
+						var rowIndex = this.parentNode.parentNode.rowIndex;
+						console.log(rowIndex);
+						var selectedParticipant = getParticipantFromName(participantName);
+						if(this.checked)
+						{
+							m_participants[rowIndex].exList.push(selectedParticipant.email);
+						}
+						else
+						{
+							m_participants[rowIndex].removeFromExList(selectedParticipant.email);
+						}
+						console.log("ExList: " + m_participants[rowIndex].exList);
+					}
+					//checkboxElement.innerHTML = participantNames[curExList] + "<br>";
+					var nameText = document.createTextNode(participantNames[curExList]);
+					var brTag = document.createElement("BR");
+					exListCell.appendChild(checkboxElement);
+					exListCell.appendChild(nameText);
+					exListCell.appendChild(brTag);
 				}
 			}
 		}
@@ -166,6 +205,19 @@
 
 		document.getElementById("partiEntry").style.display = 'none';
 		document.getElementById("exListEntry").style.display = 'block';
+	}
+
+	function getParticipantFromName(participantName)
+	{
+		var lowerCase = participantName.toLowerCase();
+		for(var i = 0; i < m_participants.length; ++i)
+		{
+			if(m_participants[i].fullName.toLowerCase() === lowerCase)
+			{
+				return m_participants[i];
+			}
+		}
+
 	}
 
 	function showParticipants()
@@ -177,17 +229,30 @@
 	function doSend()
 	{
 		var subject = document.getElementById("subject");
+		var emailBody = document.getElementById("emailBody");
 		if(subject.value.length === 0)
 		{
 			alert("Please enter a subject for the email to be sent out");
 		}
+		if(emailBody.value.length === 0)
+		{
+			alert("Please enter a message body for the email to be sent out");
+		}
+	}
+
+	function validateEmail()
+	{
+		var subject = document.getElementById("subject");
+		var emailBody = document.getElementById("emailBody");
+		var sendButton = document.getElementById("sendButton");
+		sendButton.disabled = (subject.value.length === 0 || emailBody.value.length === 0);
 	}
 </script>
 </head><body>
 <divs id="messageInfo">
-	Enter Message Subject: <input id="subject" type="text" size="80" required="" pattern="^(?!\s*$).+" placeholder="Cannot be empty" name="subject"><br>
+	Enter Message Subject: <input id="subject" type="text" size="80" required="" pattern="^(?!\s*$).+" onkeyup="validateEmail()"><br>
 	Enter Message Body:<br>
-	<textarea required="" name="message" rows="20" cols="80"></textarea><br>
+	<textarea id="emailBody" required="" pattern="^(?!\s*$).+" onkeyup="validateEmail()" rows="20" cols="80"></textarea><br>
 </div>
 
 <div id="partiEntry">
@@ -200,7 +265,7 @@
 
 <div id="exListEntry" style="display:none">
 	<div id="exListDiv"></div>
-	<button onclick="showParticipants()">Previous</button><button onclick="doSend()">Send</button>
+	<button onclick="showParticipants()">Previous</button><button id="sendButton" onclick="doSend()" disabled>Send</button>
 </div>
 
 </body></html>
