@@ -29,18 +29,29 @@ body {background-image:url("http://images2.layoutsparks.com/1/189265/horse-snow-
 
 	Participant.prototype.removeFromExList = function(participantEmail)
 	{
+		console.log("Before removing: " + this.exList);
 		var notFound = true;
 		var i = 0;
-		for(; i < this.exList.length && notFound; ++i)
+		for(; i < this.exList.length && notFound; i++)
 		{
 			if(participantEmail.toLowerCase() === this.exList[i].toLowerCase())
 			{
 				notFound = false;
 			}
 		}
-		this.exList.splice(i, 1);
+		if(!notFound)
+		{
+			this.exList.splice(i-1, 1);
+			console.log("After removing: " + this.exList);
+		}
 	}
 
+	Participant.prototype.addToExList = function(participantEmail)
+	{
+		console.log("Before adding: " + this.exList);
+		this.exList.push(participantEmail);
+		console.log("After adding: " + this.exList);
+	}
 	// Setup global variables for the page.
 	var m_participants = new Array();
 
@@ -177,19 +188,19 @@ body {background-image:url("http://images2.layoutsparks.com/1/189265/horse-snow-
 					checkboxElement.setAttribute("type", "checkbox");
 					checkboxElement.setAttribute("value", participantNames[curExList]);
 					checkboxElement.onclick = function() {
-						var participantName = this.parentNode.parentNode.cells[0].firstChild.data;
-						var rowIndex = this.parentNode.parentNode.rowIndex;
-						console.log(rowIndex);
+						var participantName = this.value;
+						console.log("Selected Participant: " + participantName);
+						var rowIndex = this.parentNode.parentNode.rowIndex - 1;
 						var selectedParticipant = getParticipantFromName(participantName);
+						console.log("Email to update: " + selectedParticipant.email);
 						if(this.checked)
 						{
-							m_participants[rowIndex].exList.push(selectedParticipant.email);
+							m_participants[rowIndex].addToExList(selectedParticipant.email);
 						}
 						else
 						{
 							m_participants[rowIndex].removeFromExList(selectedParticipant.email);
 						}
-						console.log("ExList: " + m_participants[rowIndex].exList);
 					}
 					//checkboxElement.innerHTML = participantNames[curExList] + "<br>";
 					var nameText = document.createTextNode(participantNames[curExList]);
@@ -210,6 +221,7 @@ body {background-image:url("http://images2.layoutsparks.com/1/189265/horse-snow-
 	function getParticipantFromName(participantName)
 	{
 		var lowerCase = participantName.toLowerCase();
+		console.log(m_participants);
 		for(var i = 0; i < m_participants.length; ++i)
 		{
 			if(m_participants[i].fullName.toLowerCase() === lowerCase)
@@ -234,7 +246,7 @@ body {background-image:url("http://images2.layoutsparks.com/1/189265/horse-snow-
 		{
 			alert("Please enter a subject for the email to be sent out");
 		}
-		if(emailBody.value.length === 0)
+		else if(emailBody.value.length === 0)
 		{
 			alert("Please enter a message body for the email to be sent out");
 		}
@@ -247,6 +259,18 @@ body {background-image:url("http://images2.layoutsparks.com/1/189265/horse-snow-
 		var sendButton = document.getElementById("sendButton");
 		sendButton.disabled = (subject.value.length === 0 || emailBody.value.length === 0);
 	}
+
+	/*
+	JSON request will contain:
+	{"subject":"Secret Santa subject", "body":"This is the email body", 
+		"participants":[
+			{"name":"John Doe", "email":"jd@gmail.com", 
+				"exList"[{"email":"notme@gmail.com"}, {"email":"notmetoo@gmail.com"}]},
+			{"name":"Not Me", "email":"notme@gmail.com", "exList":[]},
+			{"name":"Not Me Too", "email":"notmetoo@gamil.com" "exList":[{"email":"jd@gmail.com"}]}
+		] 
+	}
+	*/
 </script>
 </head><body>
 <divs id="messageInfo">
@@ -265,7 +289,4 @@ body {background-image:url("http://images2.layoutsparks.com/1/189265/horse-snow-
 
 <div id="exListEntry" style="display:none">
 	<div id="exListDiv"></div>
-	<button onclick="showParticipants()">Previous</button><button id="sendButton" onclick="doSend()" disabled>Send</button>
-</div>
-
-</body></html>
+	<button onclick="showParticipants()">Previous</button><button id="sendButton" onclick="doSend()">Send</button>
