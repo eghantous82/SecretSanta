@@ -1,17 +1,45 @@
 body {
-    background: url("../img/tree-background.jpg");
     background-size: auto;
     background-repeat: no-repeat;
-    padding-top: 40px;
-    padding-left: 425px;
     /* Match background in image */
     background-color: #217f99;
 }
+
+.content {
+  position: absolute;
+  left: 368px;
+  right: 385px;
+  top: 40px;
+  margin: 0 auto;
+  text-align: center;
+  align-items: center;
+}
+
+.leftpane {
+  width: 367px;
+  background-color: #217f99;
+  float: left;
+}
+
+.rightpane {
+  width: 367px;
+  background-color: #217f99;
+  float: right;
+}
+
+h1 {
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+  font-size: 34px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 900;
+  line-height: 26.4px;
+}
+
 input[type="text"] {
   display: block;
   margin: 0;
   width: 100%;
-  font-family: sans-serif;
   font-size: 18px;
   appearance: none;
   box-shadow: none;
@@ -24,11 +52,12 @@ textarea {
   display: block;
   margin: 0;
   width: 100%;
-  font-family: sans-serif;
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
   font-size: 18px;
   appearance: none;
   box-shadow: none;
   border-radius: none;
+  resize: none;
 }
 textarea:focus {
   outline: none;
@@ -60,7 +89,7 @@ input[type="text"] {
   display: block;
   margin: 0;
   width: 100%;
-  font-family: "Open Sans", sans-serif;
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
   font-size: 18px;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -82,7 +111,7 @@ textarea {
   display: block;
   margin: 0;
   width: 100%;
-  font-family: "Open Sans", sans-serif;
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
   font-size: 18px;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -102,14 +131,13 @@ textarea:focus {
 /* lists */
 ul.input-list {
   list-style: none;
-  margin: 0 -10px;
+  margin: 0;
   padding: 0;
 }
 ul.input-list li {
   display: block;
-  padding: 0 10px;
-  width: 50%;
-  float: left;
+  padding: 5px;
+  width: 100%;
 }
 
 @media all and (max-width: 800px) {
@@ -117,7 +145,7 @@ ul.input-list li {
     margin: 0;
   }
   ul.input-list li {
-    padding: 0;
+    padding: 100px;
     width: 100%;
     float: none;
     margin-bottom: 10px;
@@ -127,7 +155,8 @@ ul.input-list li {
   STYLE 1
 ============================================================ */
 .style-1 input[type="text"] {
-  padding: 10px;
+  padding-bottom: 10px;
+  padding-right: 4px;
   border: solid 1px gainsboro;
   -webkit-transition: box-shadow 0.3s, border 0.3s;
   -moz-transition: box-shadow 0.3s, border 0.3s;
@@ -142,7 +171,6 @@ ul.input-list li {
 }
 
 .style-1 textarea {
-  padding: 10px;
   border: solid 1px gainsboro;
   -webkit-transition: box-shadow 0.3s, border 0.3s;
   -moz-transition: box-shadow 0.3s, border 0.3s;

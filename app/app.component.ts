@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
   selector: 'my-app',
   template: `
     <div class="content">
-    <message-input></message-input>
+      <h1>Secret Santa</h1>
+      <message-input></message-input>
     </div>
     `
 })
