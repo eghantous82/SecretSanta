@@ -10,6 +10,16 @@ import { Component, Input } from '@angular/core';
       <li>
         <textarea rows="20" [(ngModel)]="message" placeholder="Message body" class="focus"></textarea>
       </li>
+      <li>
+        <table class="middlecontent">
+          <td>
+            <a class="myButton">Participants</a>
+          </td>
+          <td>
+            <a class="myButton">Start</a>
+          </td>
+        </table>
+      </li>
       <!--
       Enter Message Subject: <input id="subject" type="text" size="80" required="" pattern="^(?!\s*$).+" onkeyup="validateEmail()"><br>
       Enter Message Body:<br>
