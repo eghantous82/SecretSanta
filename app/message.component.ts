@@ -5,10 +5,10 @@ import { Component, Input } from '@angular/core';
     <div>
       <ul class="input-list style-1 clearfix">
       <li>
-        <input type="text" [(ngModel)]="subject" placeholder="Subject" class="focus"/>
+        <input type="text" [(ngModel)]="subject" placeholder="Subject" class="focus" (keyup)="onKey($event)"/>
       </li>
       <li>
-        <textarea rows="20" [(ngModel)]="message" placeholder="Message body" class="focus"></textarea>
+        <textarea rows="20" [(ngModel)]="message" placeholder="Message body" class="focus" (keyup)="onKey($event)"></textarea>
       </li>
       <li>
         <table class="middlecontent">
@@ -16,7 +16,7 @@ import { Component, Input } from '@angular/core';
             <a class="myButton">Participants</a>
           </td>
           <td>
-            <a class="myButton">Start</a>
+            <a [ngClass]="startButtonStyle">Start</a>
           </td>
         </table>
       </li>
@@ -32,5 +32,13 @@ import { Component, Input } from '@angular/core';
 export class MessageComponent {
   @Input()
   subject = 'Subject From Variable';
+  @Input()
   message = 'Merry Christmas Folks!';
+  startButtonStyle = "myButton";
+
+  onKey(KeyboardEvent: any) {
+    this.message = this.message.trim();
+    this.subject = this.subject.trim();
+    this.startButtonStyle = this.message.length === 0 || this.subject.length === 0 ? "myButtonDeactivated" : "myButton";
+  }
 }
