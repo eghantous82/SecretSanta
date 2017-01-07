@@ -254,3 +254,28 @@ textarea:focus {
   position:relative;
   top:1px;
 }
+
+/*=====================================================================================================================
+                                                  NAVIGATION LINKS
+=====================================================================================================================*/
+
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+}
+nav a:visited, a:link {
+  color: #000000;
+}
+nav a:hover {
+  color: #000000;
+  background-color: #CFD8DC;
+}
+nav a.active {
+  color: #000000;
+}
