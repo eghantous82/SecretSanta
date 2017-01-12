@@ -4,12 +4,13 @@ import { FormsModule }            from '@angular/forms'
 import { RouterModule, Routes }   from '@angular/router';
 import { AppComponent }           from './app.component';
 import { MessageComponent }       from './message.component';
+import { ParticipantsComponent }  from './participants.component';
 import { PageNotFoundComponent }  from './not-found.component';
 
 const appRoutes: Routes = [
   { path: 'message', component: MessageComponent },
   { path: '', redirectTo: '/message', pathMatch: 'full' },
-  /*{ path: 'participants', component: MessageComponent }, */
+  { path: 'participants', component: ParticipantsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     MessageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ParticipantsComponent
   ],
   bootstrap: [ AppComponent ]
 })

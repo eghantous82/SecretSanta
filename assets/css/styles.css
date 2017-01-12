@@ -1,5 +1,5 @@
 /*=====================================================================================================================
-                                                 COMMON
+                                                LAYOUT
 =====================================================================================================================*/
 body {
     background-size: auto;
@@ -8,9 +8,9 @@ body {
     background-color: #217f99;
 }
 
-.content {
+.middlepane {
   position: absolute;
-  left: 350px;
+  left: 400px;
   right: 400px;
   top: 40px;
   margin: 0 auto;
@@ -29,6 +29,13 @@ body {
   float: right;
 }
 
+.center-participant{
+  padding-left: 100px
+}
+
+/*=====================================================================================================================
+                                                HEADINGS
+=====================================================================================================================*/
 h1 {
   font-family: Copperplate, "Copperplate Gothic Light", fantasy;
   font-size: 34px;
@@ -38,86 +45,26 @@ h1 {
   line-height: 26.4px;
 }
 
-.middlecontent {
-  padding-left: 200px
-}
-
-/* sections */
-section {
-  margin-bottom: 60px;
-  padding: 30px;
-  background-color: #efefef;
-}
-section:last-child {
-  margin-bottom: 0;
-}
-
-/* headings */
 h2 {
   margin-bottom: 30px;
-}
-
-/* form elements */
-label {
-  display: block;
-}
-
-input[type="text"] {
-  display: block;
-  margin: 0;
-  width: 100%;
-  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
-  font-size: 18px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  -webkit-border-radius: none;
-  -moz-border-radius: none;
-  -ms-border-radius: none;
-  -o-border-radius: none;
-  border-radius: none;
-}
-input[type="text"]:focus {
-  outline: none;
-}
-
-textarea {
-  display: block;
-  margin: 0;
-  width: 100%;
-  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
-  font-size: 18px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  -webkit-border-radius: none;
-  -moz-border-radius: none;
-  -ms-border-radius: none;
-  -o-border-radius: none;
-  border-radius: none;
-}
-textarea:focus {
-  outline: none;
 }
 
 /*=====================================================================================================================
                                                   LISTS
 =====================================================================================================================*/
+.input-list {
+ padding-left: 0px;
+}
+
 .ul.input-list {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 ul.input-list li {
   display: block;
-  padding: 5px;
   width: 100%;
+  margin-bottom: 5px;
 }
 
 @media all and (max-width: 800px) {
@@ -125,7 +72,6 @@ ul.input-list li {
     margin: 0;
   }
   ul.input-list li {
-    padding: 100px;
     width: 100%;
     float: none;
     margin-bottom: 10px;
@@ -139,9 +85,18 @@ input[type="text"] {
   display: block;
   margin: 0;
   width: 100%;
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
   font-size: 18px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
   box-shadow: none;
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+  -ms-border-radius: none;
+  -o-border-radius: none;
   border-radius: none;
 }
 
@@ -152,8 +107,10 @@ input[type="text"]:focus {
 textarea {
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-right: 4px;
-  padding-left: 4px;
+
+  padding-right: 0px;
+  padding-left: 1px;
+
   display: block;
   margin: 0;
   width: 100%;
@@ -163,6 +120,15 @@ textarea {
   box-shadow: none;
   border-radius: none;
   resize: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+  -ms-border-radius: none;
+  -o-border-radius: none;
 }
 
 textarea:focus {
@@ -172,8 +138,7 @@ textarea:focus {
 .style-1 input[type="text"] {
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-right: 4px;
-  padding-left: 4px;
+  padding-left: 1px;
   border: solid 1px gainsboro;
   -webkit-transition: box-shadow 0.3s, border 0.3s;
   -moz-transition: box-shadow 0.3s, border 0.3s;
