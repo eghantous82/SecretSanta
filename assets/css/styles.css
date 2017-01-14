@@ -62,9 +62,9 @@ h2 {
   padding: 0px;
 }
 ul.input-list li {
-  display: block;
+  display: inline-flex;
   width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 @media all and (max-width: 800px) {
@@ -197,7 +197,6 @@ textarea:focus {
 	text-decoration:none;
 	text-shadow:0px 0px 0px #ffffff;
   width: 100px;
-  margin-left: 20px;
 }
 
 .myButtonDeactivated {

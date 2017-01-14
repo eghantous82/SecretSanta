@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   template: `
     <div>
-      <ul class="input-list style-1 clearfix">
+      <ul class="input-list style-1">
       <li>
         <input type="text" [(ngModel)]="subject" placeholder="Subject" class="focus" (keyup)="onKey($event)"/>
       </li>
