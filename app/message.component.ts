@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { ParticipantsService } from './participants.service';
+import { Participant } from './participants.service';
+
 @Component({
   template: `
     <div>
@@ -16,7 +19,8 @@ import { Component, Input } from '@angular/core';
       -->
       </ul>
     </div>
-    `
+    `,
+  providers: [ParticipantsService]
 })
 export class MessageComponent {
   @Input()
@@ -24,6 +28,10 @@ export class MessageComponent {
   @Input()
   message = 'Merry Christmas Folks!';
   startButtonStyle = "myButton";
+
+  list: Participant[];
+
+  constructor(private participantsService: ParticipantsService) { }
 
   onKey(KeyboardEvent: any) {
     var tmpMessage = this.message.trim();
