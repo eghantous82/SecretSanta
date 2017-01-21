@@ -23,7 +23,7 @@ export class ParticipantsComponent implements OnInit
 
   ngOnInit() : void
   {
-    this.participantsService.getParticipants().then(participants => this.list = participants);
+    this.list = this.participantsService.getParticipants();
   }
 
   add()

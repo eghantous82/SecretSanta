@@ -6,9 +6,9 @@ export class ParticipantsService
 
   list: Participant[] = [new Participant("JCole", "JCole@gmail.com"), new Participant("Future", "future@gmail.com")];
 
-  getParticipants() : Promise<Participant[]>
+  getParticipants() : Participant[]
   {
-    return Promise.resolve(this.list);
+    return this.list;
   }
 
   add()

@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { ParticipantsService } from './participants.service';
-import { Participant } from './participants.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { MessageService } from './message.service';
 
 @Component({
   template: `
@@ -19,23 +18,30 @@ import { Participant } from './participants.service';
       -->
       </ul>
     </div>
-    `,
-  providers: [ParticipantsService]
+    `
 })
-export class MessageComponent {
+export class MessageComponent implements OnInit
+{
+
   @Input()
   subject = 'Subject From Variable';
   @Input()
   message = 'Merry Christmas Folks!';
   startButtonStyle = "myButton";
 
-  list: Participant[];
-
-  constructor(private participantsService: ParticipantsService) { }
+  constructor(private messageService: MessageService) { }
 
   onKey(KeyboardEvent: any) {
     var tmpMessage = this.message.trim();
     var tmpSub = this.message.trim();
     this.startButtonStyle = tmpMessage.length === 0 || tmpSub.length === 0 ? "myButtonDeactivated" : "myButton";
+    this.messageService.setMessage(this.message);
+    this.messageService.setSubject(this.subject);
+  }
+
+  ngOnInit() : void
+  {
+    this.message = this.messageService.getMessage();
+    this.subject = this.messageService.getSubject();
   }
 }

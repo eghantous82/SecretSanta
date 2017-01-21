@@ -6,6 +6,8 @@ import { AppComponent }           from './app.component';
 import { MessageComponent }       from './message.component';
 import { ParticipantsComponent }  from './participants.component';
 import { PageNotFoundComponent }  from './not-found.component';
+import { MessageService }         from './message.service';
+import { ParticipantsService }    from './participants.service';
 
 const appRoutes: Routes = [
   { path: 'message', component: MessageComponent },
@@ -26,6 +28,10 @@ const appRoutes: Routes = [
     MessageComponent,
     PageNotFoundComponent,
     ParticipantsComponent
+  ],
+  providers: [
+    ParticipantsService,
+    MessageService
   ],
   bootstrap: [ AppComponent ]
 })

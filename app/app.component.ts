@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ParticipantsService } from './participants.service';
 
 @Component({
   selector: 'my-app',
@@ -10,8 +9,7 @@ import { ParticipantsService } from './participants.service';
       <a routerLink="/participants" routerLinkActive="active">Participants</a>
     </nav>
     <router-outlet></router-outlet>
-    `,
-  providers: [ParticipantsService]
+    `
 })
 export class AppComponent
 {
