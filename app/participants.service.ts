@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class ParticipantsService
 {
 
-  list: Participant[] = [new Participant("JCole", "JCole@gmail.com"), new Participant("Future", "future@gmail.com")];
+  list: Participant[] = [new Participant("", "")];
 
   getParticipants() : Participant[]
   {
@@ -19,6 +19,20 @@ export class ParticipantsService
   remove(index: number)
   {
     this.list.splice(index, 1);
+  }
+
+  get(index: number) : Participant
+  {
+    return this.list[index];
+  }
+
+  isValid() : boolean
+  {
+    if(this.list.length < 3)
+    {
+      return false;
+    }
+    return true;
   }
 
 }
