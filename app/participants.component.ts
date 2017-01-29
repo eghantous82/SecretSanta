@@ -36,17 +36,12 @@ export class ParticipantsComponent implements OnInit
     this.participantsService.remove(index);
   }
 
-  private validateStringLength(str: string) : boolean
-  {
-    return str.trim().length !== 0;
-  }
 
   getNameClasses(index: number)
   {
     let p: Participant = this.participantsService.get(index);
-    let validData: boolean = this.validateStringLength(p.name);
     let classes = {
-      "red-border": !validData
+      "red-border": !p.hasValidName()
     };
     return classes;
   }
@@ -54,11 +49,8 @@ export class ParticipantsComponent implements OnInit
   getEmailClasses(index: number)
   {
     let p: Participant = this.participantsService.get(index);
-    let validData: boolean = this.validateStringLength(p.email);
-    let emailRegEx: RegExp = new RegExp("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-    validData = validData && emailRegEx.test(p.email);
     let classes = {
-      "red-border": !validData
+      "red-border": !p.hasValidEmail()
     };
     return classes;
   }

@@ -5,6 +5,7 @@ export class ParticipantsService
 {
 
   list: Participant[] = [new Participant("", "")];
+  validParticipants: boolean = true;
 
   getParticipants() : Participant[]
   {
@@ -28,11 +29,7 @@ export class ParticipantsService
 
   isValid() : boolean
   {
-    if(this.list.length < 3)
-    {
-      return false;
-    }
-    return true;
+      return (this.list.length > 2 && this.validParticipants);
   }
 
 }
@@ -40,12 +37,31 @@ export class ParticipantsService
 export class Participant
 {
 
-  name = "";
-  email = "";
+  private name: string = "";
+  private email: string = "";
 
   constructor(name: string, email: string)
   {
     this.name = name;
     this.email = email;
   }
+
+  hasValidName() : boolean
+  {
+    return this.validateStringLength(this.name);
+  }
+
+  hasValidEmail(): boolean
+  {
+    let validEmail: boolean = this.validateStringLength(this.email);
+    let emailRegEx: RegExp = new RegExp("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    validEmail = validEmail && emailRegEx.test(this.email);
+    return validEmail;
+  }
+
+  private validateStringLength(str: string) : boolean
+  {
+    return str.trim().length !== 0;
+  }
+
 }
