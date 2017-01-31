@@ -43,17 +43,15 @@ export class MessageComponent implements OnInit
 
   isDataValid() : boolean
   {
+
     if(!this.participantsService.isValid())
     {
       return false;
     }
-
-    if(this.message.length === 0 || this.subject.length === 0)
+    else
     {
-      return false;
+      return this.messageService.isValid();
     }
-
-    return true;
 
   }
 

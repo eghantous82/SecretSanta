@@ -4,9 +4,13 @@ import { Injectable } from '@angular/core';
 export class ParticipantsService
 {
 
-  list: Participant[] = [new Participant("", "")];
-  validParticipants: boolean = true;
+  //list: Participant[] = [new Participant("", "")];
+  list: Participant[] = [];
 
+  constructor()
+  {
+    this.add();
+  }
   getParticipants() : Participant[]
   {
     return this.list;
@@ -14,12 +18,13 @@ export class ParticipantsService
 
   add()
   {
-    this.list.push(new Participant("",""));
+    let p: Participant = new Participant("", "");
+    this.list.push(p);
   }
 
   remove(index: number)
   {
-    this.list.splice(index, 1);
+    let p: Array<Participant> = this.list.splice(index, 1);
   }
 
   get(index: number) : Participant
@@ -29,7 +34,19 @@ export class ParticipantsService
 
   isValid() : boolean
   {
-      return (this.list.length > 2 && this.validParticipants);
+    if(this.list.length < 3)
+    {
+      return false;
+    }
+
+    for(let p of this.list)
+    {
+      if(!p.hasValidEmail() || !p.hasValidName())
+      {
+        return false;
+      }
+    }
+    return true;
   }
 
 }
@@ -48,6 +65,7 @@ export class Participant
 
   hasValidName() : boolean
   {
+    let valid: boolean = this.validateStringLength(this.name);
     return this.validateStringLength(this.name);
   }
 

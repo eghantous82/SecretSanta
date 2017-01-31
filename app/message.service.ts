@@ -27,4 +27,16 @@ export class MessageService
     this.subject = subject;
   }
 
+  isValid() : boolean
+  {
+    if(this.message.length === 0 || this.subject.length === 0)
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  }
+
 }
