@@ -1,0 +1,10 @@
+<div [@dialog] *ngIf="visible" class="dialog">
+  <ng-content></ng-content>
+  <h1>Do not allow gifts between {{participant.name}} and:</h1>
+  <li *ngFor="let ele of getExcludableParticipants()">
+    <input type="checkbox">{{ele.name}}
+  </li>
+  <button (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+  <a (click)="close()" class="myButton">Close</a>
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>

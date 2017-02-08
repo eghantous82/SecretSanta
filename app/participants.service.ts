@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 export class ParticipantsService
 {
 
-  //list: Participant[] = [new Participant("", "")];
   list: Participant[] = [];
 
   constructor()
@@ -53,7 +52,6 @@ export class ParticipantsService
 
 export class Participant
 {
-
   private name: string = "";
   private email: string = "";
 

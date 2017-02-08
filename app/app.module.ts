@@ -8,6 +8,7 @@ import { ParticipantsComponent }  from './participants.component';
 import { PageNotFoundComponent }  from './not-found.component';
 import { MessageService }         from './message.service';
 import { ParticipantsService }    from './participants.service';
+import { ExListDialogComponent }  from './exlist-dialog.component';
 
 const appRoutes: Routes = [
   { path: 'message', component: MessageComponent },
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
     AppComponent,
     MessageComponent,
     PageNotFoundComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    ExListDialogComponent
   ],
   providers: [
     ParticipantsService,

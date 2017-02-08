@@ -32,7 +32,10 @@ export class MessageComponent implements OnInit
 
 
   constructor( private messageService: MessageService,
-               private participantsService: ParticipantsService ) { }
+               private participantsService: ParticipantsService )
+  { 
+    // INTENTIONALLY LEFT BLANK
+  }
 
   onKey(KeyboardEvent: any) {
     var tmpMessage = this.message.trim();
