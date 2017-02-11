@@ -7,10 +7,10 @@ import { ParticipantsService } from './participants.service'
     <div>
       <ul class="input-list style-1">
         <li>
-          <input type="text" [(ngModel)]="subject" placeholder="Subject" class="focus" (keyup)="onKey($event)"/>
+          <input type="text" [ngClass]="getSubjectTextInputClasses()" [(ngModel)]="subject" placeholder="Subject" (keyup)="onKey($event)"/>
         </li>
         <li>
-          <textarea rows="20" [(ngModel)]="message" placeholder="Message body" class="focus" (keyup)="onKey($event)"></textarea>
+          <textarea rows="20" [ngClass]="getMessageTextInputClasses()" [(ngModel)]="message" placeholder="Message body" (keyup)="onKey($event)"></textarea>
         </li>
         <a [ngClass]="getSendClass()">Send</a>
         <!--
@@ -69,6 +69,24 @@ export class MessageComponent implements OnInit
     return classes;
   }
 
+  getSubjectTextInputClasses()
+  {
+    let classes = {
+      "red-border": !this.messageService.isValidSubject()
+    };
+    return classes
+    
+  }
+
+  getMessageTextInputClasses()
+  {
+    let classes = {
+      "red-border": !this.messageService.isValidMessage()
+    };
+    return classes
+    
+  }
+  
   ngOnInit() : void
   {
     this.message = this.messageService.getMessage();

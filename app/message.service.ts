@@ -39,4 +39,14 @@ export class MessageService
     }
   }
 
+  isValidSubject() : boolean
+  {
+    return this.subject.trim().length != 0;
+  }
+
+  isValidMessage() : boolean
+  {
+    return this.message.trim().length != 0;
+  }
+
 }

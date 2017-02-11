@@ -8,7 +8,12 @@ export class ParticipantsService
 
   constructor()
   {
-    this.add();
+    let p1: Participant = new Participant("", "", false);
+    let p2: Participant = new Participant("", "", false);
+    let p3: Participant = new Participant("", "", false);
+    this.list.push(p1);
+    this.list.push(p2);
+    this.list.push(p3);
   }
   getParticipants() : Participant[]
   {
@@ -17,13 +22,16 @@ export class ParticipantsService
 
   add()
   {
-    let p: Participant = new Participant("", "");
+    let p: Participant = new Participant("", "", true);
     this.list.push(p);
   }
 
   remove(index: number)
   {
-    let p: Array<Participant> = this.list.splice(index, 1);
+    if(this.get(index).getAllowRemove())
+    {
+      let p: Array<Participant> = this.list.splice(index, 1);
+    }  
   }
 
   get(index: number) : Participant
@@ -54,11 +62,25 @@ export class Participant
 {
   private name: string = "";
   private email: string = "";
+  private allowRemove: boolean = false;
+  private pointer: string = "pointer";
+  private opacity: number = 1;
 
-  constructor(name: string, email: string)
+  constructor(name: string, email: string, allowRemove: boolean)
   {
     this.name = name;
     this.email = email;
+    this.allowRemove = allowRemove;
+    if(!this.allowRemove)
+    {
+      this.pointer = "";
+      this.opacity = 0.4;
+    }
+  }
+
+  getAllowRemove() : boolean
+  {
+    return this.allowRemove;
   }
 
   hasValidName() : boolean

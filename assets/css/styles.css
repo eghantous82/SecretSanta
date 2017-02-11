@@ -101,10 +101,6 @@ input[type="text"] {
   border-radius: none;
 }
 
-input[type="text"]:focus {
-  outline: none;
-}
-
 textarea {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -132,10 +128,6 @@ textarea {
   -o-border-radius: none;
 }
 
-textarea:focus {
-  outline: none;
-}
-
 .style-1 input[type="text"] {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -146,25 +138,11 @@ textarea:focus {
   transition: box-shadow 0.3s, border 0.3s;
 }
 
-.style-1 input[type="text"]:focus, .style-1 input[type="text"].focus {
-  -webkit-box-shadow: 0 0 5px 1px #969696;
-  -moz-box-shadow: 0 0 5px 1px #969696;
-  box-shadow: 0 0 5px 1px #969696;
-}
-
 .style-1 textarea {
-  border: solid 1px gainsboro;
   -webkit-transition: box-shadow 0.3s, border 0.3s;
   -moz-transition: box-shadow 0.3s, border 0.3s;
   -o-transition: box-shadow 0.3s, border 0.3s;
   transition: box-shadow 0.3s, border 0.3s;
-}
-
-.style-1 textarea:focus, .style-1 textarea.focus {
-  border: solid 1px #707070;
-  -webkit-box-shadow: 0 0 5px 1px #969696;
-  -moz-box-shadow: 0 0 5px 1px #969696;
-  box-shadow: 0 0 5px 1px #969696;
 }
 
 .red-border {
