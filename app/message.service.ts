@@ -29,7 +29,7 @@ export class MessageService
 
   isValid() : boolean
   {
-    if(this.message.length === 0 || this.subject.length === 0)
+    if(!this.isValidMessage() || !this.isValidSubject())
     {
       return false;
     }
