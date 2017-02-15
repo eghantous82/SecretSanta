@@ -8,7 +8,7 @@ import { Participant } from './participants.service';
 @Component({
   selector: 'exlist-dialog',
   templateUrl: 'app/exlist-dialog.component.html',
-  styleUrls: ['app/exlist-dialog.component.css'],
+  styleUrls: ['assets/css/exlist-dialog.component.css'],
   animations: [
     trigger('dialog', [
       transition('void => *', [
@@ -25,7 +25,6 @@ export class ExListDialogComponent
 {
   @Input() visible: boolean;
   @Input() participant: Participant;
-  @Input() selectedIndex: number;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private participantsService: ParticipantsService) { }
@@ -33,19 +32,14 @@ export class ExListDialogComponent
   getExcludableParticipants() : Participant[]
   {
     let ret_value: Participant[] = [];
-    let size = this.participantsService.getParticipants().length;
-    for(let i = 0; i < size; ++i)
-    {
-      if(i !== this.selectedIndex)
-      {
-        ret_value.push(this.participantsService.get(i));
-      }
-    }
+    ret_value = this.participantsService.getParticipants().filter(value => this.participant.getId() != value.getId())
     return ret_value;
   }
 
   close() {
+    // need to extract who's been excluded
     this.visible = false;
     this.visibleChange.emit(this.visible);
   }
+
 }

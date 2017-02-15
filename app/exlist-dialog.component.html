@@ -2,7 +2,7 @@
   <ng-content></ng-content>
   <h1>Do not allow gifts between {{participant.name}} and:</h1>
   <li *ngFor="let ele of getExcludableParticipants()">
-    <input type="checkbox">{{ele.name}}
+    <input type="checkbox" [checked]="participant.isExcluded(ele)" (click)="participant.updateExList(ele.getId(), $event.target.checked)">{{ele.name}}
   </li>
   <button (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
   <a (click)="close()" class="myButton">Close</a>

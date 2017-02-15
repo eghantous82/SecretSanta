@@ -24,6 +24,10 @@
 	border-radius:6px;
 }
 
+li {
+  font-family: copperplate;
+}
+
 @media (min-width: 768px) {
   .dialog {
     top: 40px;
@@ -38,4 +42,9 @@
   top: 8px;
   right: 8px;
   font-size: 1.2em;
+}
+
+@font-face {
+   font-family: copperplate;
+   src: url("../assets/fonts/copperplate_gothic_light_regular.ttf");
 }
