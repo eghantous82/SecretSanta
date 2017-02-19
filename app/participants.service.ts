@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ParticipantsService
 {
-  public static MIN_NUM_PARTICIPANTS: number = 3;
+  private static MIN_NUM_PARTICIPANTS: number = 3;
   private idGenerator: number = 0;
   list: Participant[] = [];
 
@@ -33,7 +33,11 @@ export class ParticipantsService
   {
     if(this.hasEnoughParticipants())
     {
-      let p: Array<Participant> = this.list.splice(index, 1);
+      let removedParticipant: Array<Participant> = this.list.splice(index, 1);
+      for (let p of this.list)
+      {
+        p.participantRemoved(removedParticipant[0].getId());
+      }
     }  
   }
 
@@ -111,6 +115,12 @@ export class Participant
   {
     let index = this.exList.indexOf(p.getId());
     return (index != -1);
+  }
+
+  participantRemoved(id: number) : void
+  {
+    let index: number = this.exList.indexOf(id);
+    this.exList.splice(index, 1);
   }
 
   private validateStringLength(str: string) : boolean
