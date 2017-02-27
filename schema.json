@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Participants List",
+    "description": "A list of participants for a Secret Santa",
+    "type": "array",
+    "minItems": 3,
+    "items": {
+        "title": "Participant",
+        "description": "A participant of the Secret Santa",
+        "type": "object",
+        "properties": {
+            "id": {
+                "description": "Unique identifier for participant",
+                "type": "number"
+            },
+            "name": {
+                "description": "Participants name",
+                "type": "string"
+            },
+            "email": {
+                "description": "Participants email",
+                "type": "string"
+            },
+            "exList": {
+                "description": "List of participant IDs who cannot this participant cannot buy for",
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                    "type": "number"
+                }
+            }
+        },
+        "required": ["id", "name", "email"]
+    }
+}

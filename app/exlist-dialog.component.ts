@@ -1,6 +1,6 @@
-import { 
-  Component, Input, Output, OnChanges, EventEmitter, 
-  trigger, state, style, animate, transition } from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter,
+  trigger, style, animate, transition } from '@angular/core';
 import { ParticipantsService } from './participants.service';
 import { Participant } from './participants.service';
 
@@ -29,14 +29,15 @@ export class ExListDialogComponent
 
   constructor(private participantsService: ParticipantsService) { }
 
-  getExcludableParticipants() : Participant[]
+  getExcludableParticipants(): Participant[]
   {
     let ret_value: Participant[] = [];
-    ret_value = this.participantsService.getParticipants().filter(value => this.participant.getId() != value.getId())
+    ret_value = this.participantsService.getParticipants().filter(value => this.participant.getId() !== value.getId());
     return ret_value;
   }
 
-  close() {
+  close()
+  {
     // need to extract who's been excluded
     this.visible = false;
     this.visibleChange.emit(this.visible);

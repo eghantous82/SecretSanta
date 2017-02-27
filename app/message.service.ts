@@ -4,32 +4,33 @@ import { Injectable } from '@angular/core';
 export class MessageService
 {
 
-  message: string = "Merry Christmas All!\nThis message is to tell your that your part of a Shhhhhecret Santa.\nYou'll be buying a gift for ";
-  subject: string = "Secret Santa " + (new Date().getFullYear());
+  message: string = 'Merry Christmas All!\nThis message is to tell your that your part of a Shhhhhecret Santa.\
+  :\nYou\'ll be buying a gift for ';
+  subject: string = 'Secret Santa ' + (new Date().getFullYear());
 
-  getMessage() : string
+  getMessage(): string
   {
     return this.message;
   }
 
-  getSubject() : string
+  getSubject(): string
   {
     return this.subject;
   }
 
-  setMessage(message: string) : void
+  setMessage(message: string): void
   {
     this.message = message;
   }
 
-  setSubject(subject: string) : void
+  setSubject(subject: string): void
   {
     this.subject = subject;
   }
 
-  isValid() : boolean
+  isValid(): boolean
   {
-    if(!this.isValidMessage() || !this.isValidSubject())
+    if (!this.isValidMessage() || !this.isValidSubject())
     {
       return false;
     }
@@ -39,14 +40,14 @@ export class MessageService
     }
   }
 
-  isValidSubject() : boolean
+  isValidSubject(): boolean
   {
-    return this.subject.trim().length != 0;
+    return this.subject.trim().length !== 0;
   }
 
-  isValidMessage() : boolean
+  isValidMessage(): boolean
   {
-    return this.message.trim().length != 0;
+    return this.message.trim().length !== 0;
   }
 
 }

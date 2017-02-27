@@ -9,53 +9,53 @@ export class ParticipantsService
 
   constructor()
   {
-    this.add("Pop", "Pop@pop.com");
-    this.add("Mom", "Mom@mom.com");
-    this.add("Kid", "Kid@kid.com");
+    this.add('', '');
+    this.add('', '');
+    this.add('', '');
   }
 
-  hasEnoughParticipants() : boolean
+  hasEnoughParticipants(): boolean
   {
     return this.list.length > ParticipantsService.MIN_NUM_PARTICIPANTS;
   }
 
-  getParticipants() : Participant[]
+  getParticipants(): Participant[]
   {
     return this.list;
   }
 
-  add(name = "", email = "")
+  add(name = '', email = '')
   {
     this.list.push( new Participant(name, email, this.idGenerator++));
   }
 
   remove(index: number)
   {
-    if(this.hasEnoughParticipants())
+    if (this.hasEnoughParticipants())
     {
       let removedParticipant: Array<Participant> = this.list.splice(index, 1);
       for (let p of this.list)
       {
         p.participantRemoved(removedParticipant[0].getId());
       }
-    }  
+    }
   }
 
-  get(index: number) : Participant
+  get(index: number): Participant
   {
     return this.list[index];
   }
 
-  isValid() : boolean
+  isValid(): boolean
   {
-    if(this.list.length < ParticipantsService.MIN_NUM_PARTICIPANTS)
+    if (this.list.length < ParticipantsService.MIN_NUM_PARTICIPANTS)
     {
       return false;
     }
 
-    for(let p of this.list)
+    for (let p of this.list)
     {
-      if(!p.hasValidEmail() || !p.hasValidName())
+      if (!p.hasValidEmail() || !p.hasValidName())
       {
         return false;
       }
@@ -67,8 +67,8 @@ export class ParticipantsService
 
 export class Participant
 {
-  private name: string = "";
-  private email: string = "";
+  private name: string = '';
+  private email: string = '';
   private id: number;
   private exList: number[] = [];
 
@@ -79,28 +79,27 @@ export class Participant
     this.id = id;
   }
 
-  getId() : number
+  getId(): number
   {
     return this.id;
   }
 
-  hasValidName() : boolean
+  hasValidName(): boolean
   {
-    let valid: boolean = this.validateStringLength(this.name);
     return this.validateStringLength(this.name);
   }
 
   hasValidEmail(): boolean
   {
     let validEmail: boolean = this.validateStringLength(this.email);
-    let emailRegEx: RegExp = new RegExp("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    let emailRegEx: RegExp = new RegExp('^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$');
     validEmail = validEmail && emailRegEx.test(this.email);
     return validEmail;
   }
 
-  updateExList(id: number, checked: boolean) : void
+  updateExList(id: number, checked: boolean): void
   {
-    if(checked)
+    if (checked)
     {
       this.exList.push(id);
     }
@@ -111,19 +110,19 @@ export class Participant
     }
   }
 
-  isExcluded(p: Participant) : boolean
+  isExcluded(p: Participant): boolean
   {
     let index = this.exList.indexOf(p.getId());
-    return (index != -1);
+    return (index !== -1);
   }
 
-  participantRemoved(id: number) : void
+  participantRemoved(id: number): void
   {
     let index: number = this.exList.indexOf(id);
     this.exList.splice(index, 1);
   }
 
-  private validateStringLength(str: string) : boolean
+  private validateStringLength(str: string): boolean
   {
     return str.trim().length !== 0;
   }

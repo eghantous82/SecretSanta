@@ -181,6 +181,7 @@ textarea {
 
 .myButtonDeactivated {
   color:#cfd1d3; /*disabled*/
+  pointer-events: none;
 }
 
 .myButton:hover {

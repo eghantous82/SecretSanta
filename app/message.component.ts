@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MessageService } from './message.service';
-import { ParticipantsService } from './participants.service'
+import { ParticipantsService } from './participants.service';
 
 @Component({
   template: `
@@ -10,14 +10,10 @@ import { ParticipantsService } from './participants.service'
           <input type="text" [ngClass]="getSubjectTextInputClasses()" [(ngModel)]="subject" placeholder="Subject" (keyup)="onKey($event)"/>
         </li>
         <li>
-          <textarea rows="20" [ngClass]="getMessageTextInputClasses()" [(ngModel)]="message" placeholder="Message body" (keyup)="onKey($event)"></textarea>
+          <textarea rows="20" [ngClass]="getMessageTextInputClasses()" [(ngModel)]="message" placeholder="Message body"
+          (keyup)="onKey($event)"></textarea>
         </li>
-        <a [ngClass]="getSendClass()">Send</a>
-        <!--
-        Enter Message Subject: <input id="subject" type="text" size="80" required="" pattern="^(?!\s*$).+" onkeyup="validateEmail()"><br>
-        Enter Message Body:<br>
-        <textarea id="emailBody" required="" pattern="^(?!\s*$).+" onkeyup="validateEmail()" rows="20" cols="80"></textarea><br>
-        -->
+        <a [ngClass]="getSendClass()" (click)="doSend()">Send</a>
       </ul>
     </div>
     `
@@ -33,21 +29,20 @@ export class MessageComponent implements OnInit
 
   constructor( private messageService: MessageService,
                private participantsService: ParticipantsService )
-  { 
+  {
     // INTENTIONALLY LEFT BLANK
   }
 
-  onKey(KeyboardEvent: any) {
-    var tmpMessage = this.message.trim();
-    var tmpSub = this.message.trim();
+  onKey(KeyboardEvent: any)
+  {
     this.messageService.setMessage(this.message);
     this.messageService.setSubject(this.subject);
   }
 
-  isDataValid() : boolean
+  isDataValid(): boolean
   {
 
-    if(!this.participantsService.isValid())
+    if (!this.participantsService.isValid())
     {
       return false;
     }
@@ -72,22 +67,25 @@ export class MessageComponent implements OnInit
   getSubjectTextInputClasses()
   {
     let classes = {
-      "red-border": !this.messageService.isValidSubject()
+      'red-border': !this.messageService.isValidSubject()
     };
-    return classes
-    
+    return classes;
   }
 
   getMessageTextInputClasses()
   {
     let classes = {
-      "red-border": !this.messageService.isValidMessage()
+      'red-border': !this.messageService.isValidMessage()
     };
-    return classes
-    
+    return classes;
   }
-  
-  ngOnInit() : void
+
+  doSend(): void
+  {
+    alert('Send');
+  }
+
+  ngOnInit(): void
   {
     this.message = this.messageService.getMessage();
     this.subject = this.messageService.getSubject();
