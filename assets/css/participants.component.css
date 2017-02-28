@@ -1,0 +1,17 @@
+.disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.enabled {
+  opacity: 1.0;
+  cursor: pointer;
+}
+
+.click-disabled {
+  pointer-events: none;
+}
+
+.click-enabled {
+  pointer-events: all;
+}
