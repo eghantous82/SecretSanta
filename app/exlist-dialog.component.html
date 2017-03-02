@@ -4,7 +4,7 @@
   <li *ngFor="let ele of getExcludableParticipants()">
     <input type="checkbox" [checked]="participant.isExcluded(ele)" (click)="participant.updateExList(ele.getId(), $event.target.checked)">{{ele.name}}
   </li>
-  <button (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+  <!--<i (click)="close()" class="fa fa-times fa-2x dialog-close-btn"></i>-->
   <a (click)="close()" class="myButton">Close</a>
 </div>
 <div *ngIf="visible" class="overlay" (click)="close()"></div>

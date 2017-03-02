@@ -34,14 +34,12 @@ li {
   }
 }
 
-.dialog__close-btn {
+.dialog-close-btn {
   border: 0;
   background: none;
-  color: #2d2d2d;
   position: absolute;
   top: 8px;
   right: 8px;
-  font-size: 1.2em;
 }
 
 @font-face {

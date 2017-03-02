@@ -11,14 +11,14 @@ import { Participant } from './participants.service';
         style="width: 50%; margin-right: 5px" spellcheck="false"/>
         <input [ngClass]="{'red-border': !el.hasValidEmail()}" type="text" placeholder="Email" [(ngModel)]="el.email"
         style="width: 50%; margin-left: 5px" spellcheck="false"/>
-        <a (click)="remove(i)" [ngClass]="{'click-enabled': allowRemove(), 'click-disabled': !allowRemove()}">
-         <img src="/assets/img/deleteParticipant.png" height="40" width="40"
-         [ngClass]="{'disabled': !allowRemove(), 'enabled': allowRemove()}"/>
+        <a (click)="remove(i)" [ngClass]="{'click-enabled': allowRemove(), 'click-disabled': !allowRemove()}"
+        style="padding-right: 3px; padding-left: 3px">
+          <i class="fa fa-trash-o fa-3x" aria-hidden="true" [ngClass]="{'disabled': !allowRemove(), 'enabled': allowRemove()}"></i>
         </a>
         <a (click)="onExListClicked(i)"
         [ngClass]="{'click-enabled': participantsService.isValid(), 'click-disabled': !participantsService.isValid()}">
-          <img src="/assets/img/exList.png" height="40" width="40"
-          [ngClass]="{'disabled': !participantsService.isValid(), 'enabled': participantsService.isValid()}"/>
+          <i class="fa fa-ban fa-3x" aria-hidden="true"
+          [ngClass]="{'disabled': !participantsService.isValid(), 'enabled': participantsService.isValid()}"></i>
         </a>
       </li>
       <a class="myButton" (click)="add()">Add</a>
