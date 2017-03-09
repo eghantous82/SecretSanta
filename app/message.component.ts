@@ -14,7 +14,7 @@ import { ParticipantsService } from './participants.service';
           <textarea rows="20" [ngClass]="{'red-border': !this.messageService.isValidMessage()}"
           [(ngModel)]="message" placeholder="Message body" (keyup)="onKey($event)"></textarea>
         </li>
-        <a [ngClass]="{myButtonDeactivated: !isDataValid(), myButton: isDataValid()}" (click)="doSend()">Send</a>
+        <a [ngClass]="{myButtonDeactivated: !isDataValid(), myButton: isDataValid()}" (click)="send()">Send</a>
       </ul>
     </div>
     `
@@ -52,14 +52,16 @@ export class MessageComponent implements OnInit
     }
   }
 
-  doSend(): void
-  {
-    alert('Send');
-  }
-
   ngOnInit(): void
   {
     this.message = this.messageService.getMessage();
     this.subject = this.messageService.getSubject();
+  }
+
+  send(): void 
+  {
+     let response = this.messageService.send();
+     response.subscribe(status_code => console.log('Status code: ' + status_code),
+                        error => console.log('Error: ' + error));
   }
 }

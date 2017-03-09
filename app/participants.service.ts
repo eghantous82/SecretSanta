@@ -9,9 +9,9 @@ export class ParticipantsService
 
   constructor()
   {
-    this.add('', '');
-    this.add('', '');
-    this.add('', '');
+    this.add('1', '1@1.com');
+    this.add('2', '2@2.com');
+    this.add('3', '3@3.com');
   }
 
   hasEnoughParticipants(): boolean

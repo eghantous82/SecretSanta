@@ -1,35 +1,54 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Participants List",
-    "description": "A list of participants for a Secret Santa",
-    "type": "array",
-    "minItems": 3,
-    "items": {
-        "title": "Participant",
-        "description": "A participant of the Secret Santa",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Secret Santa Parameters",
+  "description": "Contains information required to generate Secret Santa messages and emails",
+  "type": "object",
+  "properties": {
+    "message": {
+      "description": "Message to be sent in the email",
+      "type": "string"
+    },
+    "subject": {
+      "description": "Subject of the email",
+      "type": "string"
+    },
+    "participants": {
+      "description": "A participant of the Secret Santa",
+      "type": "array",
+      "items": {
         "type": "object",
         "properties": {
-            "id": {
-                "description": "Unique identifier for participant",
-                "type": "number"
-            },
-            "name": {
-                "description": "Participants name",
-                "type": "string"
-            },
-            "email": {
-                "description": "Participants email",
-                "type": "string"
-            },
-            "exList": {
-                "description": "List of participant IDs who cannot this participant cannot buy for",
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                    "type": "number"
-                }
-            }
+          "name": {
+            "description": "Participants name",
+            "type": "string"
+          },
+          "email": {
+            "description": "Participants email",
+            "type": "string"
+          },
+          "exList": {
+            "description": "List of participant IDs who cannot this participant cannot buy for",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {}
+          },
+          "id": {
+            "description": "Unique identifier for participant",
+            "type": "integer"
+          }
         },
-        "required": ["id", "name", "email"]
+        "required": [
+          "name",
+          "email",
+          "exList",
+          "id"
+        ]
+      }
     }
+  },
+  "required": [
+    "message",
+    "subject",
+    "participants"
+  ]
 }
