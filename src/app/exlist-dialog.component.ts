@@ -7,8 +7,8 @@ import { Participant } from './participants.service';
 
 @Component({
   selector: 'exlist-dialog',
-  templateUrl: 'app/exlist-dialog.component.html',
-  styleUrls: ['assets/css/exlist-dialog.component.css'],
+  templateUrl: 'exlist-dialog.component.html',
+  styleUrls: ['exlist-dialog.component.css'],
   animations: [
     trigger('dialog', [
       transition('void => *', [

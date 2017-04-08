@@ -1,0 +1,13 @@
+<div>
+  <ul class="input-list style-1">
+    <li>
+      <input type="text" [ngClass]="{'red-border': !messageService.isValidSubject()}"
+      [(ngModel)]="subject" placeholder="Subject" (keyup)="onKey($event)"/>
+    </li>
+    <li>
+      <textarea rows="20" [ngClass]="{'red-border': !this.messageService.isValidMessage()}"
+      [(ngModel)]="message" placeholder="Message body" (keyup)="onKey($event)"></textarea>
+    </li>
+    <a [ngClass]="{myButtonDeactivated: !isDataValid(), myButton: isDataValid()}" (click)="send()">Send</a>
+  </ul>
+</div>

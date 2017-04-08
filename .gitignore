@@ -3,6 +3,7 @@
 /app/*.map
 
 /.vscode
+/dist
 
 *.log
 *.swp

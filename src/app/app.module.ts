@@ -1,7 +1,7 @@
 import { NgModule }               from '@angular/core';
 import { BrowserModule }          from '@angular/platform-browser';
 import { FormsModule }            from '@angular/forms';
-import { RouterModule, Routes }   from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules }   from '@angular/router';
 import { HttpModule }             from '@angular/http';
 import { AppComponent }           from './app.component';
 import { MessageComponent }       from './message.component';
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   declarations: [
     AppComponent,

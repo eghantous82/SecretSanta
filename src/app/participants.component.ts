@@ -3,7 +3,7 @@ import { ParticipantsService } from './participants.service';
 import { Participant } from './participants.service';
 
 @Component({
-  styleUrls: ['assets/css/participants.component.css'],
+  styleUrls: ['participants.component.css'],
   template: `
     <ul class="input-list style-1">
       <li *ngFor="let el of participantsService.getParticipants(); let i = index">
