@@ -35,7 +35,7 @@ export class ParticipantsComponent
 
   showDialog = false;
 
-  constructor(private participantsService: ParticipantsService) { }
+  constructor(public participantsService: ParticipantsService) { }
 
   add(): void
   {

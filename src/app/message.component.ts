@@ -14,8 +14,8 @@ export class MessageComponent implements OnInit
   message = 'Merry Christmas Folks!';
 
 
-  constructor( private messageService: MessageService,
-               private participantsService: ParticipantsService )
+  constructor( public messageService: MessageService,
+               public participantsService: ParticipantsService )
   {
     // INTENTIONALLY LEFT BLANK
   }

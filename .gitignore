@@ -1,6 +1,9 @@
 /node_modules
-/app/*.js
-/app/*.map
+src/app/*.js
+src/app/*.map
+src/aot/*
+*.map
+*.js
 
 /.vscode
 /dist

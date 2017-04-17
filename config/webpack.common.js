@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
+const AotPlugin = require('@ngtools/webpack').AotPlugin;
 
 module.exports = {
   entry: {
@@ -18,13 +19,7 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loaders: [
-          {
-            loader: 'awesome-typescript-loader',
-            options: { configFileName: helpers.root('src', 'tsconfig.json') }
-          } ,
-          'angular2-template-loader'
-        ]
+        loader: '@ngtools/webpack'
       },
       {
         test: /\.html$/,
@@ -61,6 +56,10 @@ module.exports = {
   },
 
   plugins: [
+    new AotPlugin({
+      tsConfigPath: 'src/tsconfig-aot.json',
+      entryModule: 'src/app/app.module#AppModule'
+    }),
     // Workaround for angular/angular#11580
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
@@ -68,7 +67,6 @@ module.exports = {
       helpers.root('./src'), // location of your src
       {} // a map of your routes
     ),
-
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
     }),

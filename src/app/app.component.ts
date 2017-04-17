@@ -10,8 +10,8 @@ import '../assets/font-awesome/css/font-awesome.css'
 })
 export class AppComponent
 {
-  constructor( private messageService: MessageService,
-               private participantsService: ParticipantsService )
+  constructor( public messageService: MessageService,
+               public participantsService: ParticipantsService )
   {
 
   }
